@@ -8,12 +8,14 @@ pipeline {
                 sh 'ls -al'
             }
         }
+
         stage('Test') {
             steps {
                 echo 'Testing..'
                 sh 'python3 -m pytest test.py'
             }
         }
+
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
@@ -22,19 +24,17 @@ pipeline {
         }
     }
 
-post {
-    success{
+    post {
+        success {
             echo "Successful"
-    }
+        }
 
-    failure{
-            echo "failed"
+        failure {
+            echo "Failed"
+        }
 
+        always {
+            echo "Pipeline completed"
+        }
     }
-    always{
-            echo "pipline completed"
-               
-    }
-} 
-
 }
