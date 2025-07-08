@@ -1,54 +1,29 @@
 pipeline {
-   
     agent any
-    // agent {
-    //     dockerfile {
-    //         filename 'Dockerfile'
-    //         dir '.'
-    //     }
-    // }
 
-    stages {
-        stage('Build') {
-            steps {
-                echo 'Building..'
-                sh 'ls -al'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                echo 'Testing..'
-                sh 'touch mohamed.txt'
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
-                sh 'echo "mohamed is here ">>mohamed.txt'
-            }
-        }
-
-       stage('excute') {
-            steps {
-                echo 'Excuting....'
-                sh 'cat mohamed.txt'
-            }
-        }
+    parameters {
+        string(name: 'BRANCH_NAME', defaultValue: 'master', description: 'Git branch to build')
+        booleanParam(name: 'RUN_TESTS', defaultValue: true, description: 'Run unit tests?')
+        choice(name: 'DEPLOY_ENV', choices: ['dev', 'staging', 'prod'], description: 'Deploy environment')
     }
 
-    post {
-        success {
-            echo "Successful"
+    stages {
+        stage('Info') {
+            steps {
+                echo "Branch: ${params.BRANCH_NAME}"
+                echo "Run Tests: ${params.RUN_TESTS}"
+                echo "Deploy to: ${params.DEPLOY_ENV}"
+            }
         }
 
-        failure {
-            echo "Failed"
-        }
-
-        always {
-            echo "Pipeline completed"
+        stage('Conditional Test') {
+            when {
+                expression { return params.RUN_TESTS }
+            }
+            steps {
+                echo '🧪 Running tests...'
+                sh 'pytest'
+            }
         }
     }
 }
