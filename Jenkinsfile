@@ -19,14 +19,14 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Testing..'
-                sh 'python3 -m pytest test.py'
+                sh 'touch mohamed.txt'
             }
         }
 
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
-                sh 'python3 app.py'
+                sh 'echo "mohamed is here ">>mohamed.txt'
             }
         }
     }
