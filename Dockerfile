@@ -1,11 +1,11 @@
-FROM python:3.10-slim
+# FROM python:3.10-slim
 
-# نسخ الملفات من المشروع
-COPY . /app
-WORKDIR /app
+# # نسخ الملفات من المشروع
+# COPY . /app
+# WORKDIR /app
 
-# تثبيت الباكجات المطلوبة
-RUN pip install -r requirements.txt
+# # تثبيت الباكجات المطلوبة
+# RUN pip install -r requirements.txt
 
-# أمر التشغيل (لو حبيت تشغل حاجة بشكل تلقائي)
-CMD ["pytest"]
+# # أمر التشغيل (لو حبيت تشغل حاجة بشكل تلقائي)
+# CMD ["pytest"]
