@@ -1,5 +1,6 @@
 pipeline {
-    any agent
+   
+    agent any
     // agent {
     //     dockerfile {
     //         filename 'Dockerfile'
