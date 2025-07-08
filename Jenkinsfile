@@ -29,6 +29,13 @@ pipeline {
                 sh 'echo "mohamed is here ">>mohamed.txt'
             }
         }
+
+       stage('excute') {
+            steps {
+                echo 'Excuting....'
+                sh 'cat mohamed.txt'
+            }
+        }
     }
 
     post {
